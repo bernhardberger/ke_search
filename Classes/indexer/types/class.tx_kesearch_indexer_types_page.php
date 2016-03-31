@@ -203,7 +203,7 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 		}
 
 		// show indexer content
-		$content .= '<p><b>Indexer "' . $this->indexerConfig['title'] . '": </b><br />'
+		$content = '<p><b>Indexer "' . $this->indexerConfig['title'] . '": </b><br />'
 			. count($indexPids) . ' pages in ' . count($this->sysLanguages) . ' languages have been found for indexing.<br />' . "\n"
 			. $this->counter . ' ' . $this->indexedElementsName . ' have been indexed (' . $this->counterWithoutContent .' more had no content).<br />' . "\n"
 			. $this->fileCounter . ' files have been indexed.<br />' . "\n"
@@ -345,17 +345,27 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 		$table = 'tt_content';
 		$where = 'pid = ' . intval($uid);
 		$where .= ' AND (' . $this->whereClauseForCType . ')';
+
+		// add condition for not indexing gridelement columns with colPos = -2 (= invalid)
+		if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('gridelements')) {
+			$where .= ' AND colPos <> -2 ';
+		}
+
+
 		$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
 		$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($table);
 
-		// Get access restrictions for this page, this access restrictians apply to all
-		// content elements of this pages. Individuel access restrictions
+		// Get access restrictions for this page, this access restrictions apply to all
+		// content elements of this pages. Individual access restrictions
 		// set for the content elements will be ignored. Use the content
 		// element indexer if you need that feature!
 		$pageAccessRestrictions = $this->getInheritedAccessRestrictions($uid);
 
-		// get Tags for current page
+		// add ke_search tags current page
 		$tags = $this->pageRecords[intval($uid)]['tags'];
+
+		// add system categories as tags
+		tx_kesearch_helper::makeSystemCategoryTags($tags, $uid, $table);
 
 		// Compile content for this page from individual content elements with
 		// respect to the language.
@@ -387,8 +397,10 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 					$content .= $this->getContentFromContentElement($ttContentRow) . "\n";
 				}
 
-				// index the files fond
-				$this->indexFiles($fileObjects, $ttContentRow, $pageAccessRestrictions['fe_group'], $tags) . "\n";
+				// index the files found
+				if (!$pageAccessRestrictions['hidden']) {
+					$this->indexFiles($fileObjects, $ttContentRow, $pageAccessRestrictions['fe_group'], $tags) . "\n";
+				}
 
 				// add content from this content element to page content
 				// ONLY if this content element is not access protected

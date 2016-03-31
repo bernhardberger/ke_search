@@ -1,10 +1,37 @@
 ChangeLog
 
+master
+[!!!] In order to restrict the filter options in the backend to those on a certain page, please use the page TSconfig option tx_kesearch.filterStorage = 123 (formerly: kesearch.filterStorage = 123). The syntax has been adopted to the official guidelines.
+[BUGFIX]  Fix fetching the right page uid in class user_filterlist, follow up to https://github.com/teaminmedias-pluswerk/ke_search/pull/9.
+[TASK]    cleanup user_filterlist
+[FEATURE] Add system categories as tags to indexed pages. That makes it possible to create filters for pages based on system categories.
+
+Version 2.1.0, March 2016
+[!!!] This version changes the database structure!
+[BUGFIX]  Remove obsolete javascript code from searchbox. Thanks to Olaf Döring. https://forge.typo3.org/issues/75134.
+[BUGFIX]  Do not index files found on hidden pages. Thanks to Olaf Döring. https://forge.typo3.org/issues/75125.
+[FEATURE] Add indexer for extension Calendar Base (cal).
+[BUGFIX]  Prevent error in result list when file is missing.
+[FEATURE] Add hook for getListOfAvailableFilteroptions. Thanks to Kevin Purrmann. https://github.com/teaminmedias-pluswerk/ke_search/pull/27.
+
+Version 2.0.4
+[BUGFIX]  Do not index content elements with colPos -2 which is set by GridElements when you unlink the item from the grid. Thanks to Bernhard Berger. Fixes #21.
+[BUGFIX]  Wrong preselectedFilter access in tx_kesearch_filters. Thanks to  Tim Lochmüller. https://forge.typo3.org/issues/73535.
+[BUGFIX]  Search word is replaced with placeholder value but shouldn't. https://forge.typo3.org/issues/70026.
+[TASK]    Remove marker based template and obsolete code. Fixes #23.
+
+Version 2.0.3
+[BUGFIX]  do not add stdWrap properties to arrays in typoscript.
+
+Version 2.0.2
+[BUGFIX]  RTE will not be loaded for 7 LTS. Thanks to Johannes Steu.
+[BUGFIX]  Initialize local variable $content. Thanks to Armin Vieweg.
+
 Version 2.0.1
 [TASK]    index new content elements of type "textmedia" coming with fluid_styled_content. IMPORTANT: Re-Create your page / content element indexer configurations or add "textmedia" manually to the list of content element types which should be indexed.
 [FEATURE] Add orig_uid/orig_pid to template at resultrow in order to give more possibilites for conditions.
 [FEATURE] Add date as timestamp to template at resultrow in order to make it easier to generate custom date formats.
-[TASK]    Make hook for additional markers for the pagebrows usable in fluid template. Thanks to Tim Lochmüller. https://forge.typo3.org/issues/72562.
+[TASK]    Make hook for additional markers for the pagebrowser usable in fluid template. Thanks to Tim Lochmüller. https://forge.typo3.org/issues/72562.
 
 Version 2.0.0
 This version features fluid templating, composer support and 7LTS compatibility.
