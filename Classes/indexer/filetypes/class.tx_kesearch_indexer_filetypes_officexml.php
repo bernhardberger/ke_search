@@ -48,6 +48,8 @@ class tx_kesearch_indexer_filetypes_officexml extends tx_kesearch_indexer_types_
 //        // Delete if exists, just to be safe.
 //        @unlink($tempFileName);
 
+        $this->fileInfo->setFile($absFile);
+
         switch ($this->fileInfo->getExtension()) {
             case 'docx':
             case 'dotx':
@@ -73,6 +75,7 @@ class tx_kesearch_indexer_filetypes_officexml extends tx_kesearch_indexer_types_
         $content_xml = implode(LF, $res);
         unset($res);
         $content = trim(strip_tags(str_replace('<', ' <', $content_xml)));
+
 //        $contentArr['body'] = $content;
         // Make sure the title doesn't expose the absolute path!
 //        $contentArr['title'] = PathUtility::basename($absFile);

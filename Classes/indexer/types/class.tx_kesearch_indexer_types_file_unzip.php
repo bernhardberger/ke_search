@@ -60,37 +60,14 @@ class tx_kesearch_indexer_types_file_unzip extends tx_kesearch_indexer_types_fil
     }
 
     /**
-     * get Content of DOC file
+     * get Content of file
      *
      * @param string $absFile
      *
-*@return string The extracted content of the file
+     * @return string The extracted content of the file
      */
-    public function getContent($absFile) {
-        // create the tempfile which will contain the content
-        $tempFileName = TYPO3\CMS\Core\Utility\GeneralUtility::tempnam('doc_files-Indexer');
-
-        // Delete if exists, just to be safe.
-        @unlink($tempFileName);
-
-        // generate and execute the pdftotext commandline tool
-        $cmd = $this->app['catdoc'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($absFile) . ' > ' . escapeshellarg($tempFileName);
-        TYPO3\CMS\Core\Utility\CommandUtility::exec($cmd);
-
-        // check if the tempFile was successfully created
-        if (@is_file($tempFileName)) {
-            $content = TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($tempFileName);
-            unlink($tempFileName);
-        }
-        else
-            return false;
-
-        // check if content was found
-        if (strlen($content)) {
-            return $content;
-        }
-        else
-            return false;
+    public function getContent($absFile)
+    {
+        return false;
     }
-
 }
