@@ -68,15 +68,16 @@ class tx_kesearch_indexer_filetypes_pdf extends tx_kesearch_indexer_types_file i
 	/**
 	 * get Content of PDF file
 	 *
-	 * @param string $file
-	 * @return string The extracted content of the file
+	 * @param string $absFile
+	 * 
+*@return string The extracted content of the file
 	 */
-	public function getContent($file) {
+	public function getContent($absFile) {
 		$this->fileInfo = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_kesearch_lib_fileinfo');
-		$this->fileInfo->setFile($file);
+		$this->fileInfo->setFile($absFile);
 
 		// get PDF informations
-		if (!$pdfInfo = $this->getPdfInfo($file))
+		if (!$pdfInfo = $this->getPdfInfo($absFile))
 			return false;
 
 		// proceed only of there are any pages found
@@ -89,7 +90,7 @@ class tx_kesearch_indexer_filetypes_pdf extends tx_kesearch_indexer_types_file i
 			@unlink($tempFileName);
 
 			// generate and execute the pdftotext commandline tool
-			$cmd = $this->app['pdftotext'] . ' -enc UTF-8 -q ' . escapeshellarg($file) . ' ' . escapeshellarg($tempFileName);
+			$cmd = $this->app['pdftotext'] . ' -enc UTF-8 -q ' . escapeshellarg($absFile) . ' ' . escapeshellarg($tempFileName);
 
 			TYPO3\CMS\Core\Utility\CommandUtility::exec($cmd);
 
@@ -99,7 +100,7 @@ class tx_kesearch_indexer_filetypes_pdf extends tx_kesearch_indexer_types_file i
 				unlink($tempFileName);
 			}
 			else {
-				$this->addError('Content for file ' . $file . ' could not be extracted. Maybe it is encrypted?');
+				$this->addError('Content for file ' . $absFile . ' could not be extracted. Maybe it is encrypted?');
 
 				// return empty string if no content was found
 				$content = '';

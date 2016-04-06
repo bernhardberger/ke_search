@@ -208,7 +208,45 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 	public function getFileContent($file) {
 		// we can continue only when given file is a true file and not a directory or what ever
 		if ($this->fileInfo->getIsFile()) {
-			$className = 'tx_kesearch_indexer_filetypes_' . $this->fileInfo->getExtension();
+
+			switch ($this->fileInfo->getExtension()) {
+				case 'pdf':
+					$className = 'tx_kesearch_indexer_filetypes_pdf';
+					break;
+				case 'doc':
+					$className = 'tx_kesearch_indexer_filetypes_doc';
+					break;
+				case 'pps':
+				case 'ppt':
+					$className = 'tx_kesearch_indexer_filetypes_ppt';
+					break;
+				case 'xls':
+					$className = 'tx_kesearch_indexer_filetypes_xls';
+					break;
+				case 'docx':        // Microsoft Word >= 2007
+                case 'dotx':
+                case 'pptx':        // Microsoft PowerPoint >= 2007
+                case 'ppsx':
+                case 'potx':
+                case 'xlsx':        // Microsoft Excel >= 2007
+				case 'xltx':
+					$className = 'tx_kesearch_indexer_filetypes_officexml';
+					break;
+				case 'sxc':
+                case 'sxi':
+                case 'sxw':
+                case 'ods':
+                case 'odp':
+				case 'odt':
+					// TODO: implement
+					// @see: https://forge.typo3.org/projects/typo3cms-core/repository/revisions/f57782b786e255fd6304ce98221d1fd81c1fca16/entry/typo3/sysext/indexed_search/Classes/FileContentParser.php#L172
+				case 'rtf':
+					// TODO: implement
+					// @see: https://forge.typo3.org/projects/typo3cms-core/repository/revisions/f57782b786e255fd6304ce98221d1fd81c1fca16/entry/typo3/sysext/indexed_search/Classes/FileContentParser.php#L191
+				default:
+					$className = 'tx_kesearch_indexer_filetypes_' . $this->fileInfo->getExtension();
+			}
+
 
 			// check if class exists
 			if (class_exists($className)) {

@@ -66,10 +66,11 @@ class tx_kesearch_indexer_filetypes_ppt extends tx_kesearch_indexer_types_file i
 	/**
 	 * get Content of PPT file
 	 *
-	 * @param string $file
-	 * @return string The extracted content of the file
+	 * @param string $absFile
+	 * 
+*@return string The extracted content of the file
 	 */
-	public function getContent($file) {
+	public function getContent($absFile) {
 		// create the tempfile which will contain the content
 		$tempFileName = TYPO3\CMS\Core\Utility\GeneralUtility::tempnam('ppt_files-Indexer');
 
@@ -77,7 +78,7 @@ class tx_kesearch_indexer_filetypes_ppt extends tx_kesearch_indexer_types_file i
 		@unlink($tempFileName);
 
 		// generate and execute the pdftotext commandline tool
-		$cmd = $this->app['catppt'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($file) . ' > ' . escapeshellarg($tempFileName);
+		$cmd = $this->app['catppt'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($absFile) . ' > ' . escapeshellarg($tempFileName);
 		TYPO3\CMS\Core\Utility\CommandUtility::exec($cmd);
 
 		// check if the tempFile was successfully created
