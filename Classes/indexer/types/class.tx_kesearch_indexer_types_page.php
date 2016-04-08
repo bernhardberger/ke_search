@@ -608,7 +608,7 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 					// count indexed files, add it to the indexer output
 					if (!file_exists($filePath)) {
 						$this->addError('Could not index file ' . $filePath . ' (file does not exist).');
-					} else if ($fileIndexerObject->fileInfo->setFile($filePath)) {
+					} else if ($fileIndexerObject->getFileInfo()->setFile($filePath)) {
 						if (($content = $fileIndexerObject->getFileContent($filePath))) {
 							$this->storeFileContentToIndex($fileObject, $content, $fileIndexerObject, $feGroups, $tags, $ttContentRow);
 							$this->fileCounter++;
@@ -720,15 +720,15 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 			$content .= "\n" . $metadata['alternative'];
 		}
 
-		$title = $fileIndexerObject->fileInfo->getName();
+		$title = $fileIndexerObject->getFileInfo()->getName();
 		$storagePid = $this->indexerConfig['storagepid'];
 		$type = 'file:' . $fileObject->getExtension();
 
 		$additionalFields = array(
-			'sortdate' => $fileIndexerObject->fileInfo->getModificationTime(),
+			'sortdate' => $fileIndexerObject->getFileInfo()->getModificationTime(),
 			'orig_uid' => $orig_uid,
 			'orig_pid' => 0,
-			'directory' => $fileIndexerObject->fileInfo->getRelativePath(),
+			'directory' => $fileIndexerObject->getFileInfo()->getRelativePath(),
 			'hash' => $fileIndexerObject->getUniqueHashForFile()
 		);
 
