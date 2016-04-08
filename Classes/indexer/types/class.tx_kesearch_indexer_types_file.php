@@ -21,6 +21,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
@@ -207,23 +208,23 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 	 * @return mixed false or fileinformations as array
 	 */
 	public function getFileContent($file) {
-		
-		// we can continue only when given file is really file and not a directory 
+
+		// we can continue only when given file is a true file and not a directory or what ever
 		if ($this->fileInfo->getIsFile()) {
 
 			switch ($this->fileInfo->getExtension()) {
-				case 'pdf':
-					$className = 'tx_kesearch_indexer_filetypes_pdf';
+				case 'pdf':			// pdf
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\PdfFileParser';
 					break;
-				case 'doc':
-					$className = 'tx_kesearch_indexer_filetypes_doc';
+				case 'doc':			// catdoc
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\DocFileParser';
 					break;
 				case 'pps':
-				case 'ppt':
-					$className = 'tx_kesearch_indexer_filetypes_ppt';
+				case 'ppt':			// Microsoft PowerPoint
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\PptFileParser';
 					break;
 				case 'xls':
-					$className = 'tx_kesearch_indexer_filetypes_xls';
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\XlsFileParser';
 					break;
 				case 'docx':        // Microsoft Word >= 2007
                 case 'dotx':
@@ -232,7 +233,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
                 case 'potx':
                 case 'xlsx':        // Microsoft Excel >= 2007
 				case 'xltx':
-					$className = 'tx_kesearch_indexer_filetypes_officexml';
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser';
 					break;
 				case 'sxc':
                 case 'sxi':
@@ -240,23 +241,27 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
                 case 'ods':
                 case 'odp':
 				case 'odt':
-					// TODO: implement
-					// @see: https://forge.typo3.org/projects/typo3cms-core/repository/revisions/f57782b786e255fd6304ce98221d1fd81c1fca16/entry/typo3/sysext/indexed_search/Classes/FileContentParser.php#L172
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser';
+					break;
 				case 'rtf':
-					// TODO: implement
-					// @see: https://forge.typo3.org/projects/typo3cms-core/repository/revisions/f57782b786e255fd6304ce98221d1fd81c1fca16/entry/typo3/sysext/indexed_search/Classes/FileContentParser.php#L191
+					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\RtfFileParser';
+					break;
 				default:
-					$className = 'tx_kesearch_indexer_filetypes_' . $this->fileInfo->getExtension();
+					$this->addError('No indexer found for this type of file: .' . $this->fileInfo->getExtension() . '');
+					return false;
 			}
 
 
 			// check if class exists
 			if (class_exists($className)) {
+
+
 				// make instance
-				$fileObj = GeneralUtility::makeInstance($className);
+				/** @var \TeaminmediasPluswerk\KeSearch\FileParser\FileParserInterface $fileParser */
+				$fileParser = GeneralUtility::makeInstance($className, $this->fileInfo);
 
 				// check if new object has interface implemented
-				if ($fileObj instanceof tx_kesearch_indexer_filetypes) {
+				if ($fileParser instanceof \TeaminmediasPluswerk\KeSearch\FileParser\FileParserInterface) {
 
 					// Do the check if a file has already been indexed at this early point in order
 					// to skip the time expensive "get content" process which includes calls to external tools
@@ -265,7 +270,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 					
 					// if there's no matching index entry, we execute the  "get file content" method of our new object
 					if (!$fileContent) {
-						$fileContent = $fileObj->getContent($file);
+						$fileContent = $fileObj->getContent();
 						$this->addError($fileObj->getErrors());
 					}
 					return $fileContent;
@@ -391,7 +396,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 		// hook for custom modifications of the indexed data, e. g. the tags
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['modifyFileIndexEntry'])) {
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['modifyFileIndexEntry'] as $_classRef) {
-				$_procObj = & GeneralUtility::getUserObj($_classRef);
+				$_procObj = &GeneralUtility::getUserObj($_classRef);
 				$_procObj->modifyFileIndexEntry($file, $content, $additionalFields, $indexRecordValues, $this);
 			}
 		}
@@ -413,6 +418,14 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 			$indexRecordValues['debug'],        // debug only?
 			$additionalFields	                // additional fields added by hooks
 		);
+	}
+
+	/**
+	 * @return \tx_kesearch_lib_fileinfo
+	 */
+	public function getFileInfo()
+	{
+		return $this->fileInfo;
 	}
 
 }
