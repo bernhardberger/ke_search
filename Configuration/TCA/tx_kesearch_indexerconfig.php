@@ -350,8 +350,17 @@ $configurationArray = array(
             'label' => 'LLL:EXT:ke_search/locallang_db.xml:tx_kesearch_indexerconfig.fileext',
             'displayCond' => 'FIELD:type:IN:file,page,tt_content',
             'config' => array(
-                'type' => 'input',
-                'size' => '30',
+                'type' => 'select',
+                'renderMode' => 'checkbox',
+                'size' => 10,
+                'minItems' => 0,
+                'maxitems' => 99,
+                'items' => array(
+                    array('PDF (.pdf)','pdf', 'EXT:ke_search/res/img/types/file_pdf.gif'),
+                    array('PowerPoint (.ppt, pptx)','ppt', 'EXT:ke_search/res/img/types/file_ppt.gif'),
+                    array('Word Document (.doc, .docx)', 'doc', 'EXT:ke_search/res/img/types/file_doc.gif'),
+                    array('Excel (.xls, .xslx)', 'xls', 'EXT:ke_search/res/img/types/file_xls.gif'),
+                ),
                 'default' => 'pdf,ppt,doc,xls'
             )
         ),
