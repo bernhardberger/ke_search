@@ -33,3 +33,6 @@ pathCatdoc = /usr/bin/
 
 # cat=filepath//40; type=string; label=Path to unzip: This path must be valid, if you want to extract content from office xml files (such as docx, pptx, xslx etc).
 pathUnzip = /usr/bin/
+
+# cat=filepath//50; type=string; label=Path to unrtf: This path must be valid, if you want to extract content from .rtf files
+pathUnrtf = /usr/bin/
