@@ -214,8 +214,8 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 
 			$extension = $this->fileInfo->getExtension();
 
-			if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'][$extension])) {
-				$className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'][$extension];
+			if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'][$extension])) {
+				$className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'][$extension];
 			} else {
 				$this->addError('No indexer configured for this type of file: .' . $this->fileInfo->getExtension() . '');
 				return false;

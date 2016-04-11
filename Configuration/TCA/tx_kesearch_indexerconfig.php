@@ -355,15 +355,21 @@ $configurationArray = array(
                 'size' => 10,
                 'minItems' => 0,
                 'maxitems' => 99,
-                'items' => array(
-                    array('PDF (.pdf)','pdf', 'EXT:ke_search/res/img/types/file_pdf.gif'),
-                    array('PowerPoint (.ppt, pptx)','ppt', 'EXT:ke_search/res/img/types/file_ppt.gif'),
-                    array('Word Document (.doc, .docx)', 'doc', 'EXT:ke_search/res/img/types/file_doc.gif'),
-                    array('Excel (.xls, .xslx)', 'xls', 'EXT:ke_search/res/img/types/file_xls.gif'),
-                ),
+                'items' => array(),
+                'itemsProcFunc' => 'TeaminmediasPluswerk\KeSearch\UserFunc\ItemsProcFunc->getFileGroups',
                 'default' => 'pdf,ppt,doc,xls'
-            )
+            ),
         ),
+//        'fileext' => array(
+//            'exclude' => 0,
+//            'label' => 'LLL:EXT:ke_search/locallang_db.xml:tx_kesearch_indexerconfig.fileext',
+//            'displayCond' => 'FALSE',
+//            'config' => array(
+//                'type' => 'input',
+//                'size' => 255,
+//                'default' => 'pdf,ppt,doc,xls'
+//            )
+//        ),
         'index_use_page_tags_for_files' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/locallang_db.xml:tx_kesearch_indexerconfig.index_use_page_tags_for_files',
@@ -448,7 +454,7 @@ $configurationArray = array(
         )
     ),
     'types' => array(
-        '0' => array('showitem' => 'hidden;;1;;1-1-1, title;;;;2-2-2, storagepid,targetpid;;;;3-3-3,type,startingpoints_recursive,single_pages,sysfolder,index_content_with_restrictions,index_passed_events,index_news_archived,index_news_category_mode,index_news_category_selection,index_extnews_category_selection,index_news_useHRDatesSingle,index_news_useHRDatesSingleWithoutDay,index_use_page_tags,fal_storage,directories,fileext,contenttypes,commenttypes,filteroption,tvpath,index_use_page_tags_for_files,cal_expired_events')
+        '0' => array('showitem' => 'hidden;;1;;1-1-1, title;;;;2-2-2, storagepid,targetpid;;;;3-3-3,type,startingpoints_recursive,single_pages,sysfolder,index_content_with_restrictions,index_passed_events,index_news_archived,index_news_category_mode,index_news_category_selection,index_extnews_category_selection,index_news_useHRDatesSingle,index_news_useHRDatesSingleWithoutDay,index_use_page_tags,fal_storage,directories,file_types,fileext,contenttypes,commenttypes,filteroption,tvpath,index_use_page_tags_for_files,cal_expired_events')
     ),
     'palettes' => array(
         '1' => array('showitem' => '')

@@ -93,4 +93,53 @@ if (TYPO3_MODE == 'BE') {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_kesearch_pi1_wizicon'] = $extPath . 'pi1/class.tx_kesearch_pi1_wizicon.php';
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_kesearch_pi2_wizicon'] = $extPath . 'pi2/class.tx_kesearch_pi2_wizicon.php';
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_kesearch_pi3_wizicon'] = $extPath . 'pi3/class.tx_kesearch_pi3_wizicon.php';
+
+
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser_groups'] = array(
+		'pdf' => array(
+			'label' => 'PDF',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_pdf.png',
+			'extensions' =>  array('pdf')
+		),
+		'doc' => array(
+			'label' => 'Microsoft Word Document / OpenDocument-Text',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_doc.png',
+			'extensions' =>  array('doc', 'docx', 'dotx', 'odt', 'sxw')
+		),
+		'ppt' => array(
+			'label' => 'Microsoft PowerPoint / OpenDocument-Presentation',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_pps.png',
+			'extensions' =>  array('ppt','pps','ppsx','pptx','potx', 'odp', 'sxi')
+		),
+		'xls' => array(
+			'label' => 'Microsoft Excel / OpenDocument-Spreadsheet',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_xls.png',
+			'extensions' =>  array('xls', 'xlsx', 'xltx', 'ods', 'sxc')
+		),
+		'rtf' => array(
+			'label' => 'Rich Text Format',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_rtf.png',
+			'extensions' =>  array('rtf')
+		),
+		'txt' => array(
+			'label' => 'Plaintext',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_txt.png',
+			'extensions' =>  array('txt', 'csv')
+		),
+		'html' => array(
+			'label' => 'HTML / XML',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_html.png',
+			'extensions' =>  array('html', 'htm')
+		),
+		'xml' => array(
+			'label' => 'XML',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_xpi.png',
+			'extensions' =>  array('xml')
+		),
+		'exif' => array(
+			'label' => 'EXIF (JPG, TIF)',
+			'icon' => 'EXT:ke_search/Resources/Public/Icons/FileExtensions/file_extension_jpg.png',
+			'extensions' =>  array('jpg', 'jpeg', 'tif')
+		)
+	);
 }
