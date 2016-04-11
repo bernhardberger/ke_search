@@ -8,8 +8,6 @@ if (TYPO3_MODE=='BE')    {
     $TYPO3_CONF_VARS['SC_OPTIONS']['GLOBAL']['cliKeys'][$_EXTKEY] = array('EXT:' . $_EXTKEY . '/cli/class.cli_kesearch.php','_CLI_kesearch');
 }
 
-// include filterlist class and pageTSconfig.txt and add plugin
-include_once(TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . '/Classes/Backend/class.user_filterlist.php');
 
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ke_search/Configuration/TSConfig/pageTS.ts">');
 

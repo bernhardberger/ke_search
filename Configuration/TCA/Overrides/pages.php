@@ -12,7 +12,7 @@ $tempColumns = array(
             'maxitems' => 100,
             'items' => array(),
             'allowNonIdValues' => true,
-            'itemsProcFunc' => 'user_filterlist->getListOfAvailableFiltersForTCA',
+            'itemsProcFunc' => 'TeaminmediasPluswerk\KeSearch\UserFunc\FilterList->getListOfAvailableFiltersForTCA',
         )
     ),
 );

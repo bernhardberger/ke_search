@@ -513,7 +513,7 @@
 								<size>5</size>
 								<allownonidvalues>1</allownonidvalues>
 								<items type="array"></items>
-								<itemsProcFunc>user_filterlist->getListOfAvailableFiltersForFlexforms</itemsProcFunc>
+								<itemsProcFunc>TeaminmediasPluswerk\KeSearch\UserFunc\FilterList->getListOfAvailableFiltersForFlexforms</itemsProcFunc>
 							</config>
 						</TCEforms>
 					</filters>
@@ -529,7 +529,7 @@
 								<size>5</size>
 								<allownonidvalues>1</allownonidvalues>
 								<items type="array"></items>
-								<itemsProcFunc>user_filterlist->getListOfAvailableFiltersForFlexforms</itemsProcFunc>
+								<itemsProcFunc>TeaminmediasPluswerk\KeSearch\UserFunc\FilterList->getListOfAvailableFiltersForFlexforms</itemsProcFunc>
 							</config>
 						</TCEforms>
 					</hiddenfilters>
@@ -545,7 +545,7 @@
 								<size>5</size>
 								<allownonidvalues>1</allownonidvalues>
 								<items type="array"></items>
-								<itemsProcFunc>user_filterlist->getListOfAvailableFilteroptionsForFlexforms</itemsProcFunc>
+								<itemsProcFunc>TeaminmediasPluswerk\KeSearch\UserFunc\FilterList->getListOfAvailableFilteroptionsForFlexforms</itemsProcFunc>
 							</config>
 						</TCEforms>
 					</preselected_filters>
