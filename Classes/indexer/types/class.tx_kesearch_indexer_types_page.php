@@ -365,7 +365,7 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 		$tags = $this->pageRecords[intval($uid)]['tags'];
 
 		// add system categories as tags
-		tx_kesearch_helper::makeSystemCategoryTags($tags, $uid, $table);
+		\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeSystemCategoryTags($tags, $uid, $table);
 
 		// Compile content for this page from individual content elements with
 		// respect to the language.
@@ -583,7 +583,7 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 			// loop through files
 			foreach ($fileObjects as $fileObject) {
 				$isInList = \TYPO3\CMS\Core\Utility\GeneralUtility::inList(
-					implode(',', tx_kesearch_helper::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext'])),
+					implode(',', \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext'])),
 					$fileObject->getExtension()
 				);
 
@@ -604,7 +604,7 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 					}
 
 					// add tag to identify this index record as file
-					tx_kesearch_helper::makeTags($tags, array('file'));
+					\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, array('file'));
 
 					// get file information and  file content (using external tools)
 					// write file data to the index as a seperate index entry
@@ -704,11 +704,11 @@ class tx_kesearch_indexer_types_page extends tx_kesearch_indexer_types {
 		}
 
 		// assign categories as tags (as cleartext, eg. "colorblue")
-		$categories = tx_kesearch_helper::getCategories($metadata['uid'], 'sys_file_metadata');
-		tx_kesearch_helper::makeTags($tags, $categories['title_list']);
+		$categories = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getCategories($metadata['uid'], 'sys_file_metadata');
+		\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, $categories['title_list']);
 
 		// assign categories as generic tags (eg. "syscat123")
-		tx_kesearch_helper::makeSystemCategoryTags($tags, $metadata['uid'], 'sys_file_metadata');
+		\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeSystemCategoryTags($tags, $metadata['uid'], 'sys_file_metadata');
 
 		if ($metadata['title']) {
 			$content = $metadata['title'] . "\n" . $content;

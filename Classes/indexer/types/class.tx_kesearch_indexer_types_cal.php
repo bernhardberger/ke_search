@@ -185,7 +185,7 @@ class tx_kesearch_indexer_types_cal extends tx_kesearch_indexer_types {
 		if ($resCount) {
 			while (($catRecord = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
 				// build tags for connected categories
-				tx_kesearch_helper::makeTags($tags, array($catRecord['title']));
+				\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, array($catRecord['title']));
 			}
 		}
 
