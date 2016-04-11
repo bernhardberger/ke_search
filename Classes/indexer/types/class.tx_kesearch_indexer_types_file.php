@@ -109,7 +109,10 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 				$filesInFolder = $folder->getFiles();
 				if (count($filesInFolder)) {
 					foreach ($filesInFolder as $file) {
-						if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList($this->pObj->indexerConfig['fileext'], $file->getExtension())) {
+						if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList(
+							implode(',', tx_kesearch_helper::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext'])),
+							$file->getExtension())
+						) {
 							$files[] = $file;
 						}
 					}
@@ -135,8 +138,13 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 	public function getFilesFromDirectories(array $directoryArray) {
 		$directoryArray = $this->getAbsoluteDirectoryPath($directoryArray);
 		if (is_array($directoryArray) && count($directoryArray)) {
+
 			foreach ($directoryArray as $directory) {
-				$foundFiles = TYPO3\CMS\Core\Utility\GeneralUtility::getAllFilesAndFoldersInPath(array(), $directory, $this->indexerConfig['fileext']);
+				$foundFiles = TYPO3\CMS\Core\Utility\GeneralUtility::getAllFilesAndFoldersInPath(
+					array(),
+					$directory,
+					implode(',', tx_kesearch_helper::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext']))
+				);
 				if (is_array($foundFiles) && count($foundFiles)) {
 					foreach ($foundFiles as $file) {
 						$files[] = $file;
@@ -213,8 +221,8 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 
 			$extension = $this->fileInfo->getExtension();
 
-			if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'][$extension])) {
-				$className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'][$extension];
+			if (\tx_kesearch_helper::getFileParserClassNameForFileExtension($extension)) {
+				$className = tx_kesearch_helper::getFileParserClassNameForFileExtension($extension);
 			} else {
 				$this->addError('No indexer configured for this type of file: .' . $this->fileInfo->getExtension() . '');
 				return false;

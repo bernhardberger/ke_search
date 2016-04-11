@@ -266,4 +266,48 @@ class tx_kesearch_helper
 
         return $fileObject;
     }
+
+    /**
+     * @param $fileExtension ..File Extension without dot
+     *
+     * @return string|false ... file parser found: [<fileExtension>] => 'FileParserClassName', else: false
+     */
+    static public function getFileParserClassNameForFileExtension($fileExtension)
+    {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'][$fileExtension])) {
+            return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'][$fileExtension];
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $groupName
+     * @return array
+     */
+    static public function resolveFileExtensionsForFileParserGroup($groupName)
+    {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser_groups'][$groupName])) {
+            return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser_groups'][$groupName]['extensions'];
+        }
+
+        return array();
+    }
+
+    /**
+     * @param string $groupNameList
+     * @return array
+     */
+    static public function getAllowedExtensionsByGroupNameList($groupNameList)
+    {
+        $groupNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $groupNameList);
+
+        $allowedExtensions = array();
+
+        foreach ($groupNames as $groupName) {
+           $allowedExtensions = array_merge($allowedExtensions, self::resolveFileExtensionsForFileParserGroup($groupName));
+        }
+
+       return $allowedExtensions;
+    }
 }
