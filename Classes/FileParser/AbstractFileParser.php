@@ -2,6 +2,7 @@
 
 namespace TeaminmediasPluswerk\KeSearch\FileParser;
 
+use TeaminmediasPluswerk\KeSearch\Utility\HelperUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -68,7 +69,7 @@ abstract class AbstractFileParser implements FileParserInterface
     public function __construct(\tx_kesearch_lib_fileinfo $fileInfo)
     {
         $this->fileInfo = $fileInfo;
-        $this->extConf = \tx_kesearch_helper::getExtConf();
+        $this->extConf = HelperUtility::getExtConf();
         $this->csObj = GeneralUtility::makeInstance('TYPO3\CMS\Core\Charset\CharsetConverter');
     }
 

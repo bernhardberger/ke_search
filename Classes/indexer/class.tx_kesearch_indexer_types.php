@@ -178,7 +178,7 @@ class tx_kesearch_indexer_types {
 
 		// add system categories as tags
 		foreach ($uids as $page_uid) {
-			tx_kesearch_helper::makeSystemCategoryTags($this->pageRecords[$page_uid]['tags'], $page_uid, 'pages');
+			\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeSystemCategoryTags($this->pageRecords[$page_uid]['tags'], $page_uid, 'pages');
 		}
 
 		// add tags which are defined by filteroption records

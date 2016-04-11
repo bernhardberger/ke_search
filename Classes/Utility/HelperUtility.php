@@ -1,4 +1,7 @@
 <?php
+
+namespace TeaminmediasPluswerk\KeSearch\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -28,9 +31,9 @@ use TYPO3\CMS\Core\Resource\ResourceFactory;
  * helper functions
  * must be used used statically!
  * Example:
- * $this->extConf = tx_kesearch_helper::getExtConf();
+ * $this->extConf = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConf();
  */
-class tx_kesearch_helper
+class HelperUtility
 {
 
     /**
@@ -52,7 +55,7 @@ class tx_kesearch_helper
         // but we wrap # with " and it works.
         $keSearchPremiumIsLoaded = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ke_search_premium');
         if ($keSearchPremiumIsLoaded) {
-            $extConfPremium = tx_kesearch_helper::getExtConfPremium();
+            $extConfPremium = HelperUtility::getExtConfPremium();
             $extConf['prePostTagChar'] = $extConfPremium['prePostTagChar'];
         } else {
             $extConf['prePostTagChar'] = '#';
@@ -155,7 +158,7 @@ class tx_kesearch_helper
     public static function makeTags(&$tags, $categoryArray)
     {
         if (is_array($categoryArray) && count($categoryArray)) {
-            $extConf = tx_kesearch_helper::getExtConf();
+            $extConf = HelperUtility::getExtConf();
 
 			foreach ($categoryArray as $catTitle) {
 				$tag = $catTitle;
@@ -188,10 +191,10 @@ class tx_kesearch_helper
      */
     public static function makeSystemCategoryTags(&$tags, $uid, $tablename)
     {
-        $categories = tx_kesearch_helper::getCategories($uid, $tablename);
+        $categories = HelperUtility::getCategories($uid, $tablename);
         if (count($categories['uid_list'])) {
             foreach ($categories['uid_list'] as $category_uid) {
-                tx_kesearch_helper::makeTags($tags, array('syscat' . $category_uid));
+                HelperUtility::makeTags($tags, array('syscat' . $category_uid));
             }
         }
     }
@@ -218,7 +221,7 @@ class tx_kesearch_helper
             case 'file':
                 // render a link for files
                 // if we use FAL, we can use the API
-                if ($resultRow['orig_uid'] && ($fileObject = tx_kesearch_helper::getFile($resultRow['orig_uid']))) {
+                if ($resultRow['orig_uid'] && ($fileObject = HelperUtility::getFile($resultRow['orig_uid']))) {
                     $linkconf['parameter'] = $fileObject->getPublicUrl();
                 } else {
                     $linkconf['parameter'] = $resultRow['directory'] . rawurlencode($resultRow['title']);
@@ -231,7 +234,7 @@ class tx_kesearch_helper
                 $linkconf['parameter'] = $resultRow['params'];
                 $linkconf['useCacheHash'] = false;
                 $linkconf['additionalParams'] = '';
-                $extConfPremium = tx_kesearch_helper::getExtConfPremium();
+                $extConfPremium = HelperUtility::getExtConfPremium();
                 $linkconf['extTarget'] = $extConfPremium['apiExternalResultTarget'] ? $extConfPremium['apiExternalResultTarget'] : '_blank';
                 break;
 
