@@ -2,6 +2,7 @@
 
 namespace TeaminmediasPluswerk\KeSearch\FileParser;
 
+use Contemas\DeveloperTools\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -33,9 +34,9 @@ class DocFileParser extends AbstractFileParser
         @unlink($tempFileName);
 
         // generate and execute the pdftotext commandline tool
-        $cmd = $this->app['catdoc'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($this->fileInfo->getPath()) . ' > ' . escapeshellarg($tempFileName);
+        $cmd = $this->app['catdoc'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($this->fileInfo->getPathAndFilename()) . ' > ' . escapeshellarg($tempFileName);
         CommandUtility::exec($cmd);
-
+        
         // check if the tempFile was successfully created
         if (@is_file($tempFileName)) {
             $content = GeneralUtility::getUrl($tempFileName);

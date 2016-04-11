@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Utility\CommandUtility;
  * Class OfficeXmlFileParser
  * @package TeaminmediasPluswerk\KeSearch\FileParser
  */
-class XlsFileParser extends AbstractFileParser
+class RtfFileParser extends AbstractFileParser
 {
     /**
      * OfficeXmlFileParser constructor.
@@ -26,12 +26,17 @@ class XlsFileParser extends AbstractFileParser
     public function getContent()
     {
         $this->setLocaleForServerFileSystem();
-        $cmd = $this->app['unrtf'] . ' ' . escapeshellarg($this->fileInfo->getPath());
+        $cmd = $this->app['unrtf'] . ' ' . escapeshellarg($this->fileInfo->getPathAndFilename());
         CommandUtility::exec($cmd, $res);
         $fileContent = implode(LF, $res);
+
+        $contentArr = $this->splitHTMLContent($fileContent);
         unset($res);
-        $fileContent = $this->pObj->convertHTMLToUtf8($fileContent);
-        $contentArr = $this->pObj->splitHTMLContent($fileContent);
+
+        $content = $contentArr['body'];
+
         $this->setLocaleForServerFileSystem(true);
+
+        return strlen($content) ? $content : false;
     }
 }

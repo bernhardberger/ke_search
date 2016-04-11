@@ -2,6 +2,8 @@
 
 namespace TeaminmediasPluswerk\KeSearch\FileParser;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class AbstractFileParser
  * @package TeaminmediasPluswerk\KeSearch\FileParser
@@ -34,6 +36,32 @@ abstract class AbstractFileParser implements FileParserInterface
     protected $errors = array();
 
     /**
+     * Charset class object
+     *
+     * @var \TYPO3\CMS\Core\Charset\CharsetConverter
+     */
+    public $csObj;
+
+    /**
+     * Set when crawler is detected (internal)
+     *
+     * @var array
+     */
+    public $defaultContentArray = array(
+        'title' => '',
+        'description' => '',
+        'keywords' => '',
+        'body' => ''
+    );
+
+    /**
+     * HTML code blocks to exclude from indexing
+     *
+     * @var string
+     */
+    public $excludeSections = 'script,style';
+
+    /**
      * AbstractFileParser constructor.
      * @param \tx_kesearch_lib_fileinfo $fileInfo
      */
@@ -41,6 +69,7 @@ abstract class AbstractFileParser implements FileParserInterface
     {
         $this->fileInfo = $fileInfo;
         $this->extConf = \tx_kesearch_helper::getExtConf();
+        $this->csObj = GeneralUtility::makeInstance('TYPO3\CMS\Core\Charset\CharsetConverter');
     }
 
     /**
@@ -168,4 +197,171 @@ abstract class AbstractFileParser implements FileParserInterface
             setlocale(LC_CTYPE, $GLOBALS['TYPO3_CONF_VARS']['SYS']['systemLocale']);
         }
     }
+
+    /**
+     * Splits HTML content and returns an associative array, with title, a list of metatags, and a list of words in the body.
+     *
+     * @param string $content HTML content to index. To some degree expected to be made by TYPO3 (ei. splitting the header by ":")
+     * @return array Array of content, having keys "title", "body", "keywords" and "description" set.
+     * @see splitRegularContent()
+     */
+    public function splitHTMLContent($content)
+    {
+        // divide head from body ( u-ouh :) )
+        $contentArr['body'] = stristr($content, '<body');
+        $headPart = substr($content, 0, -strlen($contentArr['body']));
+        // get title
+        $this->embracingTags($headPart, 'TITLE', $contentArr['title'], $dummy2, $dummy);
+        $titleParts = explode(':', $contentArr['title'], 2);
+        $contentArr['title'] = trim(isset($titleParts[1]) ? $titleParts[1] : $titleParts[0]);
+        // get keywords and description metatags
+//        if ($this->conf['index_metatags']) {
+//            $meta = array();
+//            $i = 0;
+//            while ($this->embracingTags($headPart, 'meta', $dummy, $headPart, $meta[$i])) {
+//                $i++;
+//            }
+//            // @todo The code below stops at first unset tag. Is that correct?
+//            for ($i = 0; isset($meta[$i]); $i++) {
+//                $meta[$i] = GeneralUtility::get_tag_attributes($meta[$i]);
+//                if (stristr($meta[$i]['name'], 'keywords')) {
+//                    $contentArr['keywords'] .= ',' . $this->addSpacesToKeywordList($meta[$i]['content']);
+//                }
+//                if (stristr($meta[$i]['name'], 'description')) {
+//                    $contentArr['description'] .= ',' . $meta[$i]['content'];
+//                }
+//            }
+//        }
+        // Process <!--TYPO3SEARCH_begin--> or <!--TYPO3SEARCH_end--> tags:
+        $this->typoSearchTags($contentArr['body']);
+        // Get rid of unwanted sections (ie. scripting and style stuff) in body
+        $tagList = explode(',', $this->excludeSections);
+        foreach ($tagList as $tag) {
+            while ($this->embracingTags($contentArr['body'], $tag, $dummy, $contentArr['body'], $dummy2)) {
+            }
+        }
+        // remove tags, but first make sure we don't concatenate words by doing it
+        $contentArr['body'] = str_replace('<', ' <', $contentArr['body']);
+        $contentArr['body'] = trim(strip_tags($contentArr['body']));
+        $contentArr['keywords'] = trim($contentArr['keywords']);
+        $contentArr['description'] = trim($contentArr['description']);
+        // Return array
+        return $contentArr;
+    }
+
+    /**
+     * Splits non-HTML content (from external files for instance)
+     *
+     * @param string $content Input content (non-HTML) to index.
+     * @return array Array of content, having the key "body" set (plus "title", "description" and "keywords", but empty)
+     * @see splitHTMLContent()
+     */
+    public function splitRegularContent($content)
+    {
+        $contentArr = $this->defaultContentArray;
+        $contentArr['body'] = $content;
+        return $contentArr;
+    }
+
+    /**
+     * Finds first occurrence of embracing tags and returns the embraced content and the original string with
+     * the tag removed in the two passed variables. Returns FALSE if no match found. ie. useful for finding
+     * <title> of document or removing <script>-sections
+     *
+     * @param string $string String to search in
+     * @param string $tagName Tag name, eg. "script
+     * @param string $tagContent Passed by reference: Content inside found tag
+     * @param string $stringAfter Passed by reference: Content after found tag
+     * @param string $paramList Passed by reference: Attributes of the found tag.
+     * @return bool Returns FALSE if tag was not found, otherwise TRUE.
+     */
+    public function embracingTags($string, $tagName, &$tagContent, &$stringAfter, &$paramList)
+    {
+        $endTag = '</' . $tagName . '>';
+        $startTag = '<' . $tagName;
+        // stristr used because we want a case-insensitive search for the tag.
+        $isTagInText = stristr($string, $startTag);
+        // if the tag was not found, return FALSE
+        if (!$isTagInText) {
+            return false;
+        }
+        list($paramList, $isTagInText) = explode('>', substr($isTagInText, strlen($startTag)), 2);
+        $afterTagInText = stristr($isTagInText, $endTag);
+        if ($afterTagInText) {
+            $stringBefore = substr($string, 0, strpos(strtolower($string), strtolower($startTag)));
+            $tagContent = substr($isTagInText, 0, strlen($isTagInText) - strlen($afterTagInText));
+            $stringAfter = $stringBefore . substr($afterTagInText, strlen($endTag));
+        } else {
+            $tagContent = '';
+            $stringAfter = $isTagInText;
+        }
+        return true;
+    }
+
+    /**
+     * Removes content that shouldn't be indexed according to TYPO3SEARCH-tags.
+     *
+     * @param string $body HTML Content, passed by reference
+     * @return bool Returns TRUE if a TYPOSEARCH_ tag was found, otherwise FALSE.
+     */
+    public function typoSearchTags(&$body)
+    {
+        $expBody = preg_split('/\\<\\!\\-\\-[\\s]?TYPO3SEARCH_/', $body);
+        if (count($expBody) > 1) {
+            $body = '';
+            foreach ($expBody as $val) {
+                $part = explode('-->', $val, 2);
+                if (trim($part[0]) == 'begin') {
+                    $body .= $part[1];
+                    $prev = '';
+                } elseif (trim($part[0]) == 'end') {
+                    $body .= $prev;
+                } else {
+                    $prev = $val;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Converts a HTML document to utf-8
+     *
+     * @param string $content HTML content, any charset
+     * @param string $charset Optional charset (otherwise extracted from HTML)
+     * @return string Converted HTML
+     */
+    public function convertHTMLToUtf8($content, $charset = '')
+    {
+        // Find charset:
+        $charset = $charset ?: $this->getHTMLcharset($content);
+        $charset = $this->csObj->parse_charset($charset);
+        // Convert charset:
+        if ($charset && $charset !== 'utf-8') {
+            $content = $this->csObj->utf8_encode($content, $charset);
+        }
+        // Convert entities, assuming document is now UTF-8:
+        return $this->csObj->entities_to_utf8($content, true);
+    }
+
+    /**
+     * Extract the charset value from HTML meta tag.
+     *
+     * @param string $content HTML content
+     * @return string The charset value if found.
+     */
+    public function getHTMLcharset($content)
+    {
+        if (preg_match('/<meta[[:space:]]+[^>]*http-equiv[[:space:]]*=[[:space:]]*["\']CONTENT-TYPE["\'][^>]*>/i', $content, $reg)) {
+            if (preg_match('/charset[[:space:]]*=[[:space:]]*([[:alnum:]-]+)/i', $reg[0], $reg2)) {
+                return $reg2[1];
+            }
+        }
+
+        return '';
+    }
+
+
 }

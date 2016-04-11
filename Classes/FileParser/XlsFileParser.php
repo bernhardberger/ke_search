@@ -33,7 +33,7 @@ class XlsFileParser extends AbstractFileParser
         @unlink($tempFileName);
 
         // generate and execute the pdftotext commandline tool
-        $cmd = $this->app['xls2csv'] . ' -c \' \' -q 0 -s8859-1 -dutf-8 ' . escapeshellarg($this->fileInfo->getPath()) . ' > ' . escapeshellarg($tempFileName);
+        $cmd = $this->app['xls2csv'] . ' -c \' \' -q 0 -s8859-1 -dutf-8 ' . escapeshellarg($this->fileInfo->getPathAndFilename()) . ' > ' . escapeshellarg($tempFileName);
         CommandUtility::exec($cmd);
 
         // check if the tempFile was successfully created

@@ -18,7 +18,7 @@ class XlsFileParser extends AbstractFileParser
     public function __construct(\tx_kesearch_lib_fileinfo $fileInfo)
     {
         parent::__construct($fileInfo);
-        $this->initalizeXls2Csv();
+        $this->initializeCatPPT();
     }
 
     /**
@@ -33,7 +33,7 @@ class XlsFileParser extends AbstractFileParser
         @unlink($tempFileName);
 
         // generate and execute the pdftotext commandline tool
-        $cmd = $this->app['catppt'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($this->fileInfo->getPath()) . ' > ' . escapeshellarg($tempFileName);
+        $cmd = $this->app['catppt'] . ' -s8859-1 -dutf-8 ' . escapeshellarg($this->fileInfo->getPathAndFilename()) . ' > ' . escapeshellarg($tempFileName);
         CommandUtility::exec($cmd);
 
         // check if the tempFile was successfully created
