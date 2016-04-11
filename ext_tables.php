@@ -11,22 +11,7 @@ if (TYPO3_MODE == 'BE') {
 	require_once($extPath . 'Classes/lib/class.tx_kesearch_lib_items.php');
 }
 
-$tempColumns = array(
-    'tx_kesearch_tags' => array(
-	'exclude' => 0,
-	'label' => 'LLL:EXT:ke_search/locallang_db.xml:pages.tx_kesearch_tags',
-	'config' => array(
-	    'type' => 'select',
-		'renderType' => 'selectSingleBox',
-	    'size' => 10,
-	    'minitems' => 0,
-	    'maxitems' => 100,
-	    'items' => array(),
-	    'allowNonIdValues' => true,
-	    'itemsProcFunc' => 'user_filterlist->getListOfAvailableFiltersForTCA',
-	)
-    ),
-);
+
 
 // help file
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_kesearch_filters', 'EXT:ke_search/locallang_csh.xml');
@@ -41,8 +26,7 @@ TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY .
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY . '_pi2', 'FILE:EXT:ke_search/pi2/flexform_pi2.xml');
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY . '_pi3', 'FILE:EXT:ke_search/pi3/flexform_pi3.xml');
 
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', $tempColumns);
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages', 'tx_kesearch_tags;;;;1-1-1');
+
 
 if (TYPO3_MODE == 'BE') {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
