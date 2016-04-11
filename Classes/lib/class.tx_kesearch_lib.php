@@ -1181,11 +1181,11 @@ class tx_kesearch_lib extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// fallback: default image
 		if(!is_file(PATH_site . $imageConf['file'])) {
-			$imageConf['file'] = ExtensionManagementUtility::siteRelPath($this->extKey) . 'res/img/types/' . $name . '.gif';
+			$imageConf['file'] = ExtensionManagementUtility::siteRelPath($this->extKey) . 'Resources/Public/Images/ResultTypes/' . $name . '.gif';
 
 			// fallback for file results: use default if no image for this file extension is available
 			if($type == 'file' && !is_file(PATH_site . $imageConf['file'])) {
-				$imageConf['file'] = ExtensionManagementUtility::siteRelPath($this->extKey) . 'res/img/types/file.gif';
+				$imageConf['file'] = ExtensionManagementUtility::siteRelPath($this->extKey) . 'Resources/Public/Images/ResultTypes/file.gif';
 			}
 		}
 

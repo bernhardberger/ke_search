@@ -13,7 +13,7 @@ return array(
             'endtime' => 'endtime',
             'fe_group' => 'fe_group',
         ),
-        'iconfile' => 'EXT:ke_search/res/img/table_icons/icon_tx_kesearch_index.gif',
+        'iconfile' => 'EXT:ke_search/Resources/Public/Icons/icon_tx_kesearch_index.gif',
     ),
     'interface' => array(
         'showRecordFieldList' => 'targetpid,content,params,type,tags,abstract,title,language'
