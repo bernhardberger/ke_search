@@ -2,6 +2,7 @@
 
 namespace TeaminmediasPluswerk\KeSearch\FileParser;
 
+use Contemas\DeveloperTools\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 
 /**
@@ -25,7 +26,7 @@ class OfficeXmlFileParser extends AbstractFileParser
      */
     public function getContent()
     {
-        $absFile = $this->fileInfo->getPath();
+        $absFile = $this->fileInfo->getPathAndFilename();
 
         switch ($this->fileInfo->getExtension()) {
             case 'docx':

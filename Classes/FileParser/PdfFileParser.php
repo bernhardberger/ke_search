@@ -19,7 +19,7 @@ class PdfFileParser extends AbstractFileParser
     public function __construct(\tx_kesearch_lib_fileinfo $fileInfo)
     {
         parent::__construct($fileInfo);
-        $this->initalizeXls2Csv();
+        $this->initializePdfToText();
     }
 
     /**
@@ -27,7 +27,7 @@ class PdfFileParser extends AbstractFileParser
      */
     public function getContent()
     {
-        $absFile = $this->fileInfo->getPath();
+        $absFile = $this->fileInfo->getPathAndFilename();
 
         // get PDF informations
         if (!$pdfInfo = $this->getPdfInfo($absFile)) {

@@ -144,6 +144,13 @@ class tx_kesearch_lib_fileinfo {
 	}
 
 	/**
+	 *  return full path + name
+	 */
+	public function getPathAndFilename() {
+		return $this->getPath() . $this->getName();
+	}
+
+	/**
 	 * return file body
 	 *
 	 * @return string Filebody (f.e. Bericht von Bernd)

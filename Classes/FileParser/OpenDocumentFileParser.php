@@ -25,11 +25,11 @@ class OfficeXmlFileParser extends AbstractFileParser
      */
     public function getContent()
     {
-        $absFile = $this->fileInfo->getPath();
+        $absFile = $this->fileInfo->getPathAndFilename();
 
         if ($this->app['unzip']) {
             $this->setLocaleForServerFileSystem();
-            
+
             // Read content.xml:
             $cmd = $this->app['unzip'] . ' -p ' . escapeshellarg($absFile) . ' content.xml';
             CommandUtility::exec($cmd, $res);
