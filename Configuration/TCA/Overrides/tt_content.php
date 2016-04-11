@@ -16,6 +16,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['ke_searc
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['ke_search_pi3'] = 'layout,select_key';
 
 // Configure FlexForm field
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('ke_search_pi1', 'FILE:EXT:ke_search/pi1/flexform_pi1.xml');
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('ke_search_pi2', 'FILE:EXT:ke_search/pi2/flexform_pi2.xml');
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('ke_search_pi3', 'FILE:EXT:ke_search/pi3/flexform_pi3.xml');
+TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('ke_search_pi1', 'FILE:EXT:ke_search/Configuration/Flexforms/Pi1.xml');
+TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('ke_search_pi2', 'FILE:EXT:ke_search/Configuration/Flexforms/Pi2.xml');
+TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('ke_search_pi3', 'FILE:EXT:ke_search/Configuration/Flexforms/Pi3.xml');
