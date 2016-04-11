@@ -28,3 +28,48 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_kesearch_ind
     'title'            => 'Indexing process for ke_search',
     'description'      => 'This task updates the ke_search index'
 );
+
+
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'] = array(
+    // PDF
+    'pdf'  => 'TeaminmediasPluswerk\KeSearch\FileParser\PdfFileParser',
+    // MS Word
+    'doc'  => 'TeaminmediasPluswerk\KeSearch\FileParser\DocFileParser',
+    // MS Word >= 2007
+    'docx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    'dotx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    // MS PowerPoint
+    'ppt'  => 'TeaminmediasPluswerk\KeSearch\FileParser\PptFileParser',
+    'pps'  => 'TeaminmediasPluswerk\KeSearch\FileParser\PptFileParser',
+    // MS PowerPoint >= 2007
+    'ppsx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    'pptx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    'potx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    // MS Excel
+    'xls'  => 'TeaminmediasPluswerk\KeSearch\FileParser\XlsFileParser',
+    // MS Excel >= 2007
+    'xlsx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    'xltx' => 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser',
+    // OpenDocument
+    'sxc'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
+    'sxi'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
+    'sxw'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
+    'ods'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
+    'odp'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
+    'odt'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
+    // Rich Text Format
+    'rtf'  => 'TeaminmediasPluswerk\KeSearch\FileParser\RtfFileParser',
+
+//    'txt'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//
+//    'html' => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//    'htm'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//
+//    'csv'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//
+//    'xml'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//
+//    'jpg'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//    'jpeg' => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
+//    'tif'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class
+);
