@@ -16,7 +16,7 @@ return array(
         'enablecolumns' => array(
             'disabled' => 'hidden',
         ),
-        'iconfile' => 'EXT:ke_search/res/img/table_icons/icon_tx_kesearch_filters.gif',
+        'iconfile' => 'EXT:ke_search/Resources/Public/Icons/icon_tx_kesearch_filters.gif',
         'searchFields' => 'title'
     ),
     'interface' => array(
