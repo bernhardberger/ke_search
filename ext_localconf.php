@@ -59,17 +59,16 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'] = array(
     'odt'  => 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser',
     // Rich Text Format
     'rtf'  => 'TeaminmediasPluswerk\KeSearch\FileParser\RtfFileParser',
-
-//    'txt'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//
-//    'html' => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//    'htm'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//
-//    'csv'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//
-//    'xml'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//
-//    'jpg'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//    'jpeg' => \TYPO3\CMS\IndexedSearch\FileContentParser::class,
-//    'tif'  => \TYPO3\CMS\IndexedSearch\FileContentParser::class
+    // Plaintext
+    'txt'  => 'TeaminmediasPluswerk\KeSearch\FileParser\PlaintextFileParser',
+    'csv'  => 'TeaminmediasPluswerk\KeSearch\FileParser\PlaintextFileParser',
+    // HTML
+    'html' => 'TeaminmediasPluswerk\KeSearch\FileParser\HtmlFileParser',
+    'htm' => 'TeaminmediasPluswerk\KeSearch\FileParser\HtmlFileParser',
+    // XML
+    'xml'  => 'TeaminmediasPluswerk\KeSearch\FileParser\XmlFileParser',
+    // EXIF
+    'jpg'  => 'TeaminmediasPluswerk\KeSearch\FileParser\ExifFileParser',
+    'jpeg'  => 'TeaminmediasPluswerk\KeSearch\FileParser\ExifFileParser',
+    'tif'  => 'TeaminmediasPluswerk\KeSearch\FileParser\ExifFileParser',
 );
