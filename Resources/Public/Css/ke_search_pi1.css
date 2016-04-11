@@ -434,8 +434,8 @@ div.kesearchbox{
     text-decoration:none;
 	overflow:hidden;
 }
-.tx-kesearch-pi1 .next{background: transparent url('img/arrow-next.gif') no-repeat left 0;}
-.tx-kesearch-pi1 .prev{background: transparent url('img/arrow-prev.gif') no-repeat right 0;}
+.tx-kesearch-pi1 .next{background: transparent url('../Images/arrow-next.gif') no-repeat left 0;}
+.tx-kesearch-pi1 .prev{background: transparent url('../Images/arrow-prev.gif') no-repeat right 0;}
 .tx-kesearch-pi1 a.next,
 .tx-kesearch-pi1 a.prev{
     display:inline-block;
