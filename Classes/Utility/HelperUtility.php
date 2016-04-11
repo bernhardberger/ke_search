@@ -25,7 +25,9 @@ namespace TeaminmediasPluswerk\KeSearch\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * helper functions
@@ -53,7 +55,7 @@ class HelperUtility
         // so you we need to change the default char # against something else.
         // MySQL has problems also with #
         // but we wrap # with " and it works.
-        $keSearchPremiumIsLoaded = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ke_search_premium');
+        $keSearchPremiumIsLoaded = ExtensionManagementUtility::isLoaded('ke_search_premium');
         if ($keSearchPremiumIsLoaded) {
             $extConfPremium = HelperUtility::getExtConfPremium();
             $extConf['prePostTagChar'] = $extConfPremium['prePostTagChar'];
@@ -83,7 +85,7 @@ class HelperUtility
      */
     public static function getExtConfPremium()
     {
-        $keSearchPremiumIsLoaded = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ke_search_premium');
+        $keSearchPremiumIsLoaded = ExtensionManagementUtility::isLoaded('ke_search_premium');
         if ($keSearchPremiumIsLoaded) {
             $extConfPremium = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ke_search_premium']);
             if (!$extConfPremium['prePostTagChar']) {
@@ -121,7 +123,7 @@ class HelperUtility
         );
 
         if ($uid && $table) {
-            $enableFields = \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields('sys_category') . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('sys_category');
+            $enableFields = BackendUtility::BEenableFields('sys_category') . BackendUtility::deleteClause('sys_category');
             $resCat = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query(
                 'sys_category.uid, sys_category.title',
                 'sys_category',
