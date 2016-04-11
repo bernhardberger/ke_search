@@ -211,49 +211,17 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 		// we can continue only when given file is a true file and not a directory or what ever
 		if ($this->fileInfo->getIsFile()) {
 
-			switch ($this->fileInfo->getExtension()) {
-				case 'pdf':			// pdf
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\PdfFileParser';
-					break;
-				case 'doc':			// catdoc
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\DocFileParser';
-					break;
-				case 'pps':
-				case 'ppt':			// Microsoft PowerPoint
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\PptFileParser';
-					break;
-				case 'xls':
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\XlsFileParser';
-					break;
-				case 'docx':        // Microsoft Word >= 2007
-                case 'dotx':
-                case 'pptx':        // Microsoft PowerPoint >= 2007
-                case 'ppsx':
-                case 'potx':
-                case 'xlsx':        // Microsoft Excel >= 2007
-				case 'xltx':
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\OfficeXmlFileParser';
-					break;
-				case 'sxc':
-                case 'sxi':
-                case 'sxw':
-                case 'ods':
-                case 'odp':
-				case 'odt':
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\OpenDocumentFileParser';
-					break;
-				case 'rtf':
-					$className = 'TeaminmediasPluswerk\KeSearch\FileParser\RtfFileParser';
-					break;
-				default:
-					$this->addError('No indexer found for this type of file: .' . $this->fileInfo->getExtension() . '');
-					return false;
-			}
+			$extension = $this->fileInfo->getExtension();
 
+			if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'][$extension])) {
+				$className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'][$extension];
+			} else {
+				$this->addError('No indexer configured for this type of file: .' . $this->fileInfo->getExtension() . '');
+				return false;
+			}
 
 			// check if class exists
 			if (class_exists($className)) {
-
 
 				// make instance
 				/** @var \TeaminmediasPluswerk\KeSearch\FileParser\FileParserInterface $fileParser */
@@ -266,6 +234,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 					$this->addError($fileParser->getErrors());
 					return $fileContent;
 				} else {
+					$this->addError('FileParser ' . $className . ' must implement interface \TeaminmediasPluswerk\KeSearch\FileParser\FileParserInterface!');
 					return false;
 				}
 			} else {
@@ -275,7 +244,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 				if ($this->pObj->indexerConfig['fal_storage'] > 0) {
 					return '';
 				} else {
-					$this->addError('No indexer for this type of file. (class ' . $className . ' does not exist).');
+					$this->addError('No FileParser for this type of file. (class ' . $className . ' does not exist).');
 					return false;
 				}
 			}
