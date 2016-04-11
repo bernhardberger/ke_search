@@ -6,7 +6,6 @@ return array(
 	'tx_kesearch_indexer' => $extensionPath . 'Classes/indexer/class.tx_kesearch_indexer.php',
 	'tx_kesearch_indexer_types' => $extensionPath . 'Classes/indexer/class.tx_kesearch_indexer_types.php',
 	'tx_kesearch_indexer_types_file' => $extensionPath . 'Classes/indexer/types/class.tx_kesearch_indexer_types_file.php',
-	'tx_kesearch_indexer_types_file_unzip' => $extensionPath . 'Classes/indexer/types/class.tx_kesearch_indexer_types_file_unzip.php',
 	'tx_kesearch_indexer_types_page' => $extensionPath . 'Classes/indexer/types/class.tx_kesearch_indexer_types_page.php',
 	'tx_kesearch_indexer_types_templavoila' => $extensionPath . 'Classes/indexer/types/class.tx_kesearch_indexer_types_templavoila.php',
 	'tx_kesearch_lib' => $extensionPath . 'Classes/lib/class.tx_kesearch_lib.php',

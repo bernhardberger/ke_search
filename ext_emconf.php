@@ -35,3 +35,5 @@ $EM_CONF[$_EXTKEY] = array(
         'psr-4' => array('TeaminmediasPluswerk\\KeSearch\\' => 'Classes'),
     ),
 );
+
+// some icons by http://www.fatcow.com/free-icons

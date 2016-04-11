@@ -30,7 +30,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_kesearch_ind
 );
 
 
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parsers'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['file_parser'] = array(
     // PDF
     'pdf'  => 'TeaminmediasPluswerk\KeSearch\FileParser\PdfFileParser',
     // MS Word
