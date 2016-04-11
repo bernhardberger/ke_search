@@ -81,19 +81,19 @@ if (TYPO3_MODE == 'BE') {
 
 
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array(
-	'LLL:EXT:ke_search/locallang_db.xml:tt_content.list_type_pi1',
+	'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tt_content.list_type_pi1',
 	$_EXTKEY . '_pi1',
 	TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('ke_search') . 'ext_icon.gif'), 'list_type'
 );
 
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array(
-	'LLL:EXT:ke_search/locallang_db.xml:tt_content.list_type_pi2',
+	'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tt_content.list_type_pi2',
 	$_EXTKEY . '_pi2',
 	TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('ke_search') . 'ext_icon.gif'), 'list_type'
 );
 
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array(
-	'LLL:EXT:ke_search/locallang_db.xml:tt_content.list_type_pi3',
+	'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tt_content.list_type_pi3',
 	$_EXTKEY . '_pi3',
 	TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('ke_search') . 'ext_icon.gif'), 'list_type'
 );

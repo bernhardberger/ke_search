@@ -3,7 +3,7 @@
 $tempColumns = array(
     'tx_kesearch_tags' => array(
         'exclude' => 0,
-        'label' => 'LLL:EXT:ke_search/locallang_db.xml:pages.tx_kesearch_tags',
+        'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:pages.tx_kesearch_tags',
         'config' => array(
             'type' => 'select',
             'renderType' => 'selectSingleBox',
@@ -15,7 +15,7 @@ $tempColumns = array(
             'itemsProcFunc' => 'user_filterlist->getListOfAvailableFiltersForTCA',
         )
     ),
-); 
+);
 
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', $tempColumns);
 TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages', 'tx_kesearch_tags;;;;1-1-1');
