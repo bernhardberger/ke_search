@@ -108,7 +108,7 @@ class tx_kesearch_lib_searchresult {
 
 		// clean title
 		$linktext = strip_tags($linktext);
-		$linktext = $this->pObj->div->removeXSS($linktext);
+		$linktext = \TYPO3\CMS\Core\Utility\GeneralUtility::removeXSS($linktext);
 
 		// highlight hits in result title?
 		if($this->conf['highlightSword'] && count($this->pObj->swords)) {
