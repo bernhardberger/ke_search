@@ -67,8 +67,8 @@ class tx_kesearch_indexer {
 	 */
 	public function __construct() {
 		// get extension configuration array
-		$this->extConf = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConf();
-		$this->extConfPremium = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConfPremium();
+		$this->extConf = tx_kesearch_helper::getExtConf();
+		$this->extConfPremium = tx_kesearch_helper::getExtConfPremium();
 		$this->registry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Registry');
 
 		// fetch the list of the default indexers which come with ke_search

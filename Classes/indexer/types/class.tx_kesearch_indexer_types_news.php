@@ -184,7 +184,7 @@ class tx_kesearch_indexer_types_news extends tx_kesearch_indexer_types {
 				$tags = $this->addTagsFromNewsCategories($tags, $categoryData);
 
 				// add system categories as tags
-				\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeSystemCategoryTags($tags, $newsRecord['uid'], $table);
+				tx_kesearch_helper::makeSystemCategoryTags($tags, $newsRecord['uid'], $table);
 
 				// set additional fields
 				$additionalFields = array();
@@ -322,7 +322,7 @@ class tx_kesearch_indexer_types_news extends tx_kesearch_indexer_types {
 		if (!empty($newsRecord['keywords'])) {
 			$keywordsList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $newsRecord['keywords']);
 			foreach ($keywordsList as $keyword) {
-				\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, array($keyword));
+				tx_kesearch_helper::makeTags($tags, array($keyword));
 			}
 		}
 
@@ -350,7 +350,7 @@ class tx_kesearch_indexer_types_news extends tx_kesearch_indexer_types {
 		);
 
 		while (($newsTag = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($resTag))) {
-			\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, array($newsTag['title']));
+			tx_kesearch_helper::makeTags($tags, array($newsTag['title']));
 		}
 
 		return $tags;
@@ -366,7 +366,7 @@ class tx_kesearch_indexer_types_news extends tx_kesearch_indexer_types {
 	 * @return string
 	 */
 	private function addTagsFromNewsCategories($tags, $categoryData) {
-		\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, $categoryData['title_list']);
+		tx_kesearch_helper::makeTags($tags, $categoryData['title_list']);
 		return $tags;
 	}
 

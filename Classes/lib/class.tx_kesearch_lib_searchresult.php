@@ -99,7 +99,7 @@ class tx_kesearch_lib_searchresult {
 		switch($type) {
 			case 'file':
 				// if we use FAL, see if we have a title in the metadata
-				if ($this->row['orig_uid'] && ($fileObject = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getFile($this->row['orig_uid']))) {
+				if ($this->row['orig_uid'] && ($fileObject = tx_kesearch_helper::getFile($this->row['orig_uid']))) {
 					$metadata = $fileObject->_getMetaData();
 					$linktext = ($metadata['title'] ? $metadata['title'] : $this->row['title']);
 				} else {
@@ -145,7 +145,7 @@ class tx_kesearch_lib_searchresult {
 	 * @return array configuration for typolink
 	 */
 	public function getResultLinkConfiguration() {
-		return \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getResultLinkConfiguration($this->row, $this->conf['resultLinkTarget'], $this->conf['resultLinkTargetFiles']);
+		return tx_kesearch_helper::getResultLinkConfiguration($this->row, $this->conf['resultLinkTarget'], $this->conf['resultLinkTargetFiles']);
 	}
 
 

@@ -31,7 +31,7 @@ use TYPO3\CMS\Core\Resource\ResourceFactory;
  * helper functions
  * must be used used statically!
  * Example:
- * $this->extConf = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConf();
+ * $this->extConf = tx_kesearch_helper::getExtConf();
  */
 class HelperUtility
 {

@@ -83,11 +83,11 @@ class tx_kesearch_indexer_types_tt_content extends tx_kesearch_indexer_types_pag
 				$tags = $this->pageRecords[$uid]['tags'];
 
 				// assign categories as tags (as cleartext, eg. "colorblue")
-				$categories = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getCategories($row['uid'], $table);
-				\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, $categories['title_list']);
+				$categories = tx_kesearch_helper::getCategories($row['uid'], $table);
+				tx_kesearch_helper::makeTags($tags, $categories['title_list']);
 
 				// assign categories as generic tags (eg. "syscat123")
-				\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeSystemCategoryTags($tags, $row['uid'], $table);
+				tx_kesearch_helper::makeSystemCategoryTags($tags, $row['uid'], $table);
 
 				// index header
 				// add header only if not set to "hidden"
