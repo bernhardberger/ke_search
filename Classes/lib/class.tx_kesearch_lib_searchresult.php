@@ -45,11 +45,6 @@ class tx_kesearch_lib_searchresult {
 	 */
 	protected $cObj;
 
-	/**
-	 * @var tx_kesearch_lib_div
-	 */
-	protected $div;
-
 
 	/**
 	 * The constructor of this class

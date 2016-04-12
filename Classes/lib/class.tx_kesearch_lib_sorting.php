@@ -51,14 +51,6 @@ class tx_kesearch_lib_sorting {
 	*/
 	var $cObj;
 
-	/**
-	* @var tx_kesearch_lib_div
-	*/
-	var $div;
-
-
-
-
 
 	/**
 	 * The constructor of this class

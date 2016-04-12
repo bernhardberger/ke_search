@@ -53,11 +53,6 @@ class tx_kesearch_indexer {
 	var $registry;
 
 	/**
-	 * @var tx_kesearch_lib_div
-	 */
-	var $div;
-
-	/**
 	 * @var array
 	 */
 	var $defaultIndexerTypes = array();
