@@ -54,7 +54,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 		parent::__construct($pObj);
 
 		// get extension configuration of ke_search
-		$this->extConf = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConf();
+		$this->extConf = tx_kesearch_helper::getExtConf();
 		$this->fileInfo = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_kesearch_lib_fileinfo');
 	}
 
@@ -110,7 +110,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 				if (count($filesInFolder)) {
 					foreach ($filesInFolder as $file) {
 						if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList(
-							implode(',', \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext'])),
+							implode(',', tx_kesearch_helper::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext'])),
 							$file->getExtension())
 						) {
 							$files[] = $file;
@@ -143,7 +143,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 				$foundFiles = TYPO3\CMS\Core\Utility\GeneralUtility::getAllFilesAndFoldersInPath(
 					array(),
 					$directory,
-					implode(',', \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext']))
+					implode(',', tx_kesearch_helper::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext']))
 				);
 				if (is_array($foundFiles) && count($foundFiles)) {
 					foreach ($foundFiles as $file) {
@@ -221,8 +221,8 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 
 			$extension = $this->fileInfo->getExtension();
 
-			if (\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getFileParserClassNameForFileExtension($extension)) {
-				$className = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getFileParserClassNameForFileExtension($extension);
+			if (tx_kesearch_helper::getFileParserClassNameForFileExtension($extension)) {
+				$className = tx_kesearch_helper::getFileParserClassNameForFileExtension($extension);
 			} else {
 				$this->addError('No indexer configured for this type of file: .' . $this->fileInfo->getExtension() . '');
 				return false;
@@ -285,7 +285,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 	public function storeToIndex($file, $content) {
 
 		$tags = '';
-		\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($tags, array('file'));
+		tx_kesearch_helper::makeTags($tags, array('file'));
 
 		// get data from FAL
 		if ($file instanceof \TYPO3\CMS\Core\Resource\File) {
@@ -337,11 +337,11 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 			}
 
 			// make tags from assigned categories
-			$categories = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getCategories($metadata['uid'], 'sys_file_metadata');
-			\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeTags($indexRecordValues['tags'], $categories['title_list']);
+			$categories = tx_kesearch_helper::getCategories($metadata['uid'], 'sys_file_metadata');
+			tx_kesearch_helper::makeTags($indexRecordValues['tags'], $categories['title_list']);
 
 			// assign categories as generic tags (eg. "syscat123")
-			\TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::makeSystemCategoryTags($indexRecordValues['tags'], $metadata['uid'], 'sys_file_metadata');
+			tx_kesearch_helper::makeSystemCategoryTags($indexRecordValues['tags'], $metadata['uid'], 'sys_file_metadata');
 		}
 
 		// hook for custom modifications of the indexed data, e. g. the tags

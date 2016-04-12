@@ -152,8 +152,8 @@ class tx_kesearch_lib extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$this->filters = GeneralUtility::makeInstance('tx_kesearch_filters');
 
 		// get extension configuration array
-		$this->extConf = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConf();
-		$this->extConfPremium = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getExtConfPremium();
+		$this->extConf = tx_kesearch_helper::getExtConf();
+		$this->extConfPremium = tx_kesearch_helper::getExtConfPremium();
 
 		// initialize filters
 		$this->filters->initialize($this);
@@ -1100,7 +1100,7 @@ class tx_kesearch_lib extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			// if index record is of type "file" and contains an orig_uid, this is the reference
 			// to a FAL record. Otherwise we use the path directly.
-			if ($row['orig_uid'] && ($fileObject = \TeaminmediasPluswerk\KeSearch\Utility\HelperUtility::getFile($row['orig_uid']))) {
+			if ($row['orig_uid'] && ($fileObject = tx_kesearch_helper::getFile($row['orig_uid']))) {
 				$metadata = $fileObject->_getMetaData();
 				$imageConf['file'] = $fileObject->getPublicUrl();
 				$imageConf['altText'] = $metadata['alternative'];
