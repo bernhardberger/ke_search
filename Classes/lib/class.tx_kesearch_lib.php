@@ -716,6 +716,7 @@ class tx_kesearch_lib extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 				'orig_uid' => $row['orig_uid'],
 				'orig_pid' => $row['orig_pid'],
 				'title' => $this->searchResult->getTitle(),
+				'title_raw' => $this->searchResult->getTitle(false),
 				'teaser' => $this->searchResult->getTeaser(),
 			);
 

@@ -86,7 +86,7 @@ class tx_kesearch_lib_searchresult {
 	 *
 	 * @return string The linked result title
 	 */
-	public function getTitle() {
+	public function getTitle($wrapInLink = true) {
 		// configure the link
 		$linkconf = $this->getResultLinkConfiguration();
 
@@ -114,7 +114,11 @@ class tx_kesearch_lib_searchresult {
 		if($this->conf['highlightSword'] && count($this->pObj->swords)) {
 			$linktext = $this->highlightArrayOfWordsInContent($this->pObj->swords, $linktext);
 		}
-		return $this->cObj->typoLink($linktext, $linkconf);
+		if ($wrapInLink) {
+			return $this->cObj->typoLink($linktext, $linkconf);
+		} else {
+			return $linktext;
+		}
 	}
 
 
