@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class OfficeXmlFileParser
  * @package TeaminmediasPluswerk\KeSearch\FileParser
  */
-class XlsFileParser extends AbstractFileParser
+class PptFileParser extends AbstractFileParser
 {
     /**
      * OfficeXmlFileParser constructor.
