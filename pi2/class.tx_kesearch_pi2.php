@@ -22,6 +22,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Plugin 'Faceted search - searchbox and filters' for the 'ke_search' extension.
@@ -32,6 +33,11 @@
  * @subpackage	tx_kesearch
  */
 class tx_kesearch_pi2 extends tx_kesearch_lib {
+
+	/**
+	 * @var \TYPO3\CMS\Fluid\View\StandaloneView
+	 */
+	protected $resultListView;
 
 	// Path to this script relative to the extension dir.
 	var $scriptRelPath      = 'pi2/class.tx_kesearch_pi2.php';
@@ -98,6 +104,12 @@ class tx_kesearch_pi2 extends tx_kesearch_lib {
 
 		// generate HTML output
 		$this->resultListView->assignMultiple($this->fluidTemplateVariables);
+		$sword = isset(GeneralUtility::_GPmerged('tx_kesearch_pi1')['sword'])
+			? GeneralUtility::_GPmerged('tx_kesearch_pi1')['sword']
+			: '';
+		$this->resultListView->assign('searchWord', $sword);
+		$this->resultListView->assign('searchWordLength', strlen($sword));
+
 		$htmlOutput = $this->resultListView->render();
 
 		return $htmlOutput;
