@@ -75,6 +75,7 @@ return array(
         'rendertype' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.rendertype',
+            'l10n_mode' => 'exclude',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -93,6 +94,7 @@ return array(
         'markAllCheckboxes' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.markAllCheckboxes',
+            'l10n_mode' => 'exclude',
             'config' => array(
                 'type' => 'check',
                 'default' => '0'
@@ -100,20 +102,36 @@ return array(
         ),
         'options' => array(
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.options',
-            'config' => Array(
+            'config' => array(
                 'type' => 'inline',
                 'foreign_table' => 'tx_kesearch_filteroptions',
                 'maxitems' => 500,
                 'appearance' => Array(
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1,
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true,
+                    'showPossibleLocalizationRecords' => true,
+                    'showAllSynchronizationLink' => true,
+                    'showSynchronizationLink' => true,
+                    'enabledControls' => array(
+                        'info' => true,
+                        'dragdrop' => true,
+                        'sort' => true,
+                        'hide' => true,
+                        'delete' => true,
+                        'localize' => true,
+                    )
                 ),
+                'behaviour' => array(
+                    'localizationMode' => 'select',
+                    'localizeChildrenAtParentLocalization' => true,
+                )
             ),
         ),
         'target_pid' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.target_pid',
+            'l10n_mode' => 'exclude',
             'config' => array(
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -131,6 +149,7 @@ return array(
         'amount' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.amount',
+            'l10n_mode' => 'exclude',
             'config' => array(
                 'type' => 'input',
                 'default' => '10',
@@ -141,6 +160,7 @@ return array(
         'shownumberofresults' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.shownumberofresults',
+            'l10n_mode' => 'exclude',
             'config' => array(
                 'type' => 'check',
                 'default' => '1'
@@ -149,6 +169,7 @@ return array(
         'alphabeticalsorting' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filters.alphabeticalsorting',
+            'l10n_mode' => 'exclude',
             'config' => array(
                 'type' => 'check',
                 'default' => '1',

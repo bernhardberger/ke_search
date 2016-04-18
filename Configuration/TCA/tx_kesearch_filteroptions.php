@@ -74,6 +74,8 @@ return array(
         'tag' => array(
             'exclude' => 0,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filteroptions.tag',
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
             'config' => array(
                 'type' => 'input',
                 'size' => '30',
@@ -82,6 +84,8 @@ return array(
         'automated_tagging' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filteroptions.automated_tagging',
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
             'config' => array(
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -99,6 +103,8 @@ return array(
         'automated_tagging_exclude' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:ke_search/Resources/Private/Language/locallang_db.xml:tx_kesearch_filteroptions.automated_tagging_exclude',
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
             'config' => array(
                 'type' => 'group',
                 'internal_type' => 'db',
