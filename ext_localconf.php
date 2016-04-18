@@ -23,10 +23,10 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['modifyContentIndexEntry'][]
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['modifyTemplaVoilaIndexEntry'][] = 'EXT:ke_search/Classes/hooks/class.user_kesearchhooks.php:user_kesearch_sortdate';
 
 // add scheduler task
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_kesearch_indexertask'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['TeaminmediasPluswerk\\KeSearch\\Task\\IndexerTask'] = array(
     'extension'        => $_EXTKEY,
-    'title'            => 'Indexing process for ke_search',
-    'description'      => 'This task updates the ke_search index'
+    'title'            => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang_be.xlf:indexerTask.title',
+    'description'      => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang_be.xlf:indexerTask.description',
 );
 
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-04-18T15:45:00Z" product-name="KeSearch">
+        <header/>
+        <body>
+            <trans-unit id="indexerTask.title">
+                <source>Indexing process for ke_search</source>
+                <target>Indexierungsprozess für ke_search</target>
+            </trans-unit>
+            <trans-unit id="indexerTask.description">
+                <source>This task updates the ke_search index</source>
+                <target>Dieser Task aktualisiert den ke_search index</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
