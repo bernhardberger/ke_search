@@ -240,13 +240,13 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 
 					// Do the check if a file has already been indexed at this early point in order
 					// to skip the time expensive "get content" process which includes calls to external tools
-					// fetch the file content directly from the index 
+					// fetch the file content directly from the index
 					$fileContent = $this->getFileContentFromIndex($this->getUniqueHashForFile());
-					
+
 					// if there's no matching index entry, we execute the  "get file content" method of our new object
 					if (!$fileContent) {
-						$fileContent = $fileObj->getContent();
-						$this->addError($fileObj->getErrors());
+						$fileContent = $fileParser->getContent();
+						$this->addError($fileParser->getErrors());
 					}
 					return $fileContent;
 				} else {
@@ -272,7 +272,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 
 	/**
 	 * checks if there's an entry in the index for the given file hash. Returns the content of that entry.
-	 * 
+	 *
 	 * @param string $hash
 	 * @return string/boolean returns false if no entry has been found, otherwise the content as string
 	 */
