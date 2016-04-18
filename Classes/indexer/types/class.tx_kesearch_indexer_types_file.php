@@ -21,7 +21,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
@@ -141,7 +140,7 @@ class tx_kesearch_indexer_types_file extends tx_kesearch_indexer_types {
 		if (is_array($directoryArray) && count($directoryArray)) {
 
 			foreach ($directoryArray as $directory) {
-				$foundFiles = GeneralUtility::getAllFilesAndFoldersInPath(
+				$foundFiles = TYPO3\CMS\Core\Utility\GeneralUtility::getAllFilesAndFoldersInPath(
 					array(),
 					$directory,
 					implode(',', tx_kesearch_helper::getAllowedExtensionsByGroupNameList($this->indexerConfig['fileext']))
