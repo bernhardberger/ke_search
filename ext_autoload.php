@@ -24,4 +24,5 @@ return array(
     'tx_kesearch_indexer_filetypes_ppt' => $extensionPath . 'Classes/LegacyClassMap.php',
     'tx_kesearch_indexer_filetypes_doc' => $extensionPath . 'Classes/LegacyClassMap.php',
     'tx_kesearch_indexer_filetypes_xls' => $extensionPath . 'Classes/LegacyClassMap.php',
+    'tx_kesearch_cli'                   => $extensionPath . 'Classes/LegacyClassMap.php',
 );

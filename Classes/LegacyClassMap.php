@@ -24,3 +24,7 @@ class tx_kesearch_indexer_filetypes_doc extends \TeaminmediasPluswerk\KeSearch\F
  * @deprecated
  */
 class tx_kesearch_indexer_filetypes_xls extends \TeaminmediasPluswerk\KeSearch\FileParser\XlsFileParser {}
+/**
+ * @deprecated
+ */
+class tx_kesearch_cli extends \TeaminmediasPluswerk\KeSearch\Lowlevel\IndexerCommand {}
