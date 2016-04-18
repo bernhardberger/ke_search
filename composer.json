@@ -11,7 +11,6 @@
     "version": "2.2.0",
 	"autoload": {
         "psr-4": {
-            "teaminmedias-pluswerk\\ke_search\\": "Classes",
             "TeaminmediasPluswerk\\KeSearch\\": "Classes"
         },
         "classmap": ["Classes", "cli", "pi1", "pi2", "pi3"]
