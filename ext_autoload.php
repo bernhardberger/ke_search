@@ -2,7 +2,6 @@
 $extensionPath = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('ke_search');
 return array(
     'tx_kesearch_pi1' => $extensionPath . 'pi1/class.tx_kesearch_pi1.php',
-    'tx_kesearch_indexertask' => $extensionPath . 'Classes/Scheduler/class.tx_kesearch_indexertask.php',
     'tx_kesearch_indexer' => $extensionPath . 'Classes/indexer/class.tx_kesearch_indexer.php',
     'tx_kesearch_indexer_types' => $extensionPath . 'Classes/indexer/class.tx_kesearch_indexer_types.php',
     'tx_kesearch_indexer_types_file' => $extensionPath . 'Classes/indexer/types/class.tx_kesearch_indexer_types_file.php',
@@ -24,5 +23,7 @@ return array(
     'tx_kesearch_indexer_filetypes_ppt' => $extensionPath . 'Classes/LegacyClassMap.php',
     'tx_kesearch_indexer_filetypes_doc' => $extensionPath . 'Classes/LegacyClassMap.php',
     'tx_kesearch_indexer_filetypes_xls' => $extensionPath . 'Classes/LegacyClassMap.php',
+    'tx_kesearch_indexertask'           => $extensionPath . 'Classes/LegacyClassMap.php',
     'tx_kesearch_cli'                   => $extensionPath . 'Classes/LegacyClassMap.php',
+
 );
