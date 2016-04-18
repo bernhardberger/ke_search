@@ -55,7 +55,6 @@ class HelperUtility
         // so you we need to change the default char # against something else.
         // MySQL has problems also with #
         // but we wrap # with " and it works.
-        $keSearchPremiumIsLoaded = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ke_search_premium');
         $keSearchPremiumIsLoaded = ExtensionManagementUtility::isLoaded('ke_search_premium');
         if ($keSearchPremiumIsLoaded) {
             $extConfPremium = HelperUtility::getExtConfPremium();
@@ -86,7 +85,6 @@ class HelperUtility
      */
     public static function getExtConfPremium()
     {
-        $keSearchPremiumIsLoaded = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ke_search_premium');
         $keSearchPremiumIsLoaded = ExtensionManagementUtility::isLoaded('ke_search_premium');
         if ($keSearchPremiumIsLoaded) {
             $extConfPremium = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ke_search_premium']);
